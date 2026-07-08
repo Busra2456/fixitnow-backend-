@@ -5,7 +5,7 @@ model User {
   password String
   phone    String?
   role     Role       @default(CUSTOMER)
-  status   UserStatus @default(ACTIVE)
+  activeStatus   ActiveStatus @default(ACTIVE)
 
   technicianProfile TechnicianProfile?
 

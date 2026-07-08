@@ -4,7 +4,8 @@ enum Role {
   ADMIN
 }
 
-enum UserStatus {
+enum ActiveStatus {
+ 
   ACTIVE
   BLOCKED
 }
