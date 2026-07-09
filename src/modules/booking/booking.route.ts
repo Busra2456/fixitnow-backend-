@@ -13,5 +13,6 @@ router.get("/",auth(Role.CUSTOMER, Role.TECHNICIAN, Role.ADMIN),
 router.get("/:id",auth(Role.CUSTOMER, Role.TECHNICIAN, Role.ADMIN),
   bookingController.getSingleBooking
 );
-
+router.patch("/:id",auth(Role.TECHNICIAN),bookingController.updateBookingStatus
+);
 export const bookingRoutes = router;

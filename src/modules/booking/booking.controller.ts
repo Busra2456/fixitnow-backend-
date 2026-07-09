@@ -50,8 +50,30 @@ const getSingleBooking = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const updateBookingStatus = catchAsync(
+  async (req: Request, res: Response) => {
+    const technicianId = req.user!.id;
+    const bookingId = req.params.id;
+    const payload = req.body;
+
+    const result = await bookingService.updateBookingStatusIntoDB(
+      bookingId as string,
+      technicianId,
+      payload
+    );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Booking status updated successfully",
+      data: result,
+    });
+  }
+);
+
 export const bookingController = {
   createBooking,
   getAllBookings,
-  getSingleBooking
+  getSingleBooking,
+  updateBookingStatus
 };

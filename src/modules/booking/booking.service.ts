@@ -1,6 +1,6 @@
 import { prisma } from "../../lib/prisma";
-import { ICreateBooking } from "./booking.interface";
-import { Role } from "../../../generated/prisma/enums";
+import { ICreateBooking, IUpdateBookingStatus } from "./booking.interface";
+import { BookingStatus, Role } from "../../../generated/prisma/enums";
 import { Prisma } from "../../../generated/prisma/client";
 const createBookingIntoDB = async (
   customerId: string,
@@ -148,8 +148,68 @@ const getSingleBookingFromDB = async (
   return booking;
 };
 
+const updateBookingStatusIntoDB = async (
+  bookingId: string,
+  technicianId: string,
+  payload: IUpdateBookingStatus
+) => {
+  
+  const booking = await prisma.booking.findUniqueOrThrow({
+    where: {
+      id: bookingId,
+    },
+  });
+
+  if (booking.technicianId !== technicianId) {
+    throw new Error("You can update only your own bookings");
+  }
+
+  if (booking.status !== BookingStatus.REQUESTED) {
+    throw new Error("Only requested bookings can be updated");
+  }
+
+  if (
+    payload.status !== BookingStatus.ACCEPTED &&
+    payload.status !== BookingStatus.DECLINED
+  ) {
+    throw new Error(
+      "Status must be ACCEPTED or DECLINED"
+    );
+  }
+
+  // Update
+  const updatedBooking = await prisma.booking.update({
+    where: {
+      id: bookingId,
+    },
+    data: {
+      status: payload.status,
+    },
+    include: {
+      customer: {
+        omit: {
+          password: true,
+        },
+      },
+      technician: {
+        omit: {
+          password: true,
+        },
+      },
+      service: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+
+  return updatedBooking;
+};
+
 export const bookingService = {
   createBookingIntoDB,
   getAllBookingsFromDB,
-  getSingleBookingFromDB
+  getSingleBookingFromDB,
+  updateBookingStatusIntoDB
 };
