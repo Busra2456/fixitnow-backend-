@@ -7,6 +7,7 @@ import cookieParser from 'cookie-parser';
 import { categoryRoutes } from './modules/category/category.route';
 import { serviceRoutes } from './modules/service/service.route';
 import { bookingRoutes } from './modules/booking/booking.route';
+import { paymentRoutes } from './modules/payment/payment.route';
 const app: Application = express();
 app.use(cors({
   origin : config.app_url,
@@ -25,6 +26,7 @@ app.use("/api/auth",authRoutes)
 app.use("/api/categories", categoryRoutes);
 app.use("/api/services", serviceRoutes);
 app.use("/api/bookings", bookingRoutes);
+app.use("/api/payments",paymentRoutes);
 
 export default app;
 

@@ -153,7 +153,6 @@ const updateBookingStatusIntoDB = async (
   technicianId: string,
   payload: IUpdateBookingStatus
 ) => {
-  
   const booking = await prisma.booking.findUniqueOrThrow({
     where: {
       id: bookingId,
@@ -164,20 +163,39 @@ const updateBookingStatusIntoDB = async (
     throw new Error("You can update only your own bookings");
   }
 
-  if (booking.status !== BookingStatus.REQUESTED) {
-    throw new Error("Only requested bookings can be updated");
+  
+  if (booking.status === BookingStatus.REQUESTED) {
+    if (
+      payload.status !== BookingStatus.ACCEPTED &&
+      payload.status !== BookingStatus.DECLINED
+    ) {
+      throw new Error(
+        "Status must be ACCEPTED or DECLINED"
+      );
+    }
   }
 
-  if (
-    payload.status !== BookingStatus.ACCEPTED &&
-    payload.status !== BookingStatus.DECLINED
-  ) {
-    throw new Error(
-      "Status must be ACCEPTED or DECLINED"
-    );
+  
+  else if (booking.status === BookingStatus.PAID) {
+    if (payload.status !== BookingStatus.IN_PROGRESS) {
+      throw new Error(
+        "Only PAID booking can be moved to IN_PROGRESS"
+      );
+    }
   }
 
-  // Update
+  else if (booking.status === BookingStatus.IN_PROGRESS) {
+    if (payload.status !== BookingStatus.COMPLETED) {
+      throw new Error(
+        "Only IN_PROGRESS booking can be marked COMPLETED"
+      );
+    }
+  }
+
+  else {
+    throw new Error("This booking cannot be updated");
+  }
+
   const updatedBooking = await prisma.booking.update({
     where: {
       id: bookingId,
@@ -206,6 +224,7 @@ const updateBookingStatusIntoDB = async (
 
   return updatedBooking;
 };
+
 
 export const bookingService = {
   createBookingIntoDB,
