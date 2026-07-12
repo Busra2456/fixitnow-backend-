@@ -1,25 +1,19 @@
 model User {
-  id       String     @id @default(uuid())
-  name     String
-  email    String     @unique
-  password String
-  phone    String?
-  role     Role       @default(CUSTOMER)
-  activeStatus   ActiveStatus @default(ACTIVE)
-
-  technicianProfile TechnicianProfile?
-
-  servicesCreated Service[] @relation("TechnicianServices")
-
-  customerBookings   Booking[] @relation("CustomerBookings")
-  technicianBookings Booking[] @relation("TechnicianBookings")
-
-  customerReviews Review[] @relation("CustomerReviews")
-
-  technicianReviews Review[] @relation("TechnicianReviews")
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id                 String             @id @default(uuid())
+  name               String
+  email              String             @unique
+  password           String
+  phone              String?
+  role               Role               @default(CUSTOMER)
+  createdAt          DateTime           @default(now())
+  updatedAt          DateTime           @updatedAt
+  activeStatus       ActiveStatus       @default(ACTIVE)
+  customerBookings   Booking[]          @relation("CustomerBookings")
+  technicianBookings Booking[]          @relation("TechnicianBookings")
+  customerReviews    Review[]           @relation("CustomerReviews")
+  technicianReviews  Review[]           @relation("TechnicianReviews")
+  servicesCreated    Service[]          @relation("TechnicianServices")
+  technicianProfile  TechnicianProfile?
 
   @@map("users")
 }

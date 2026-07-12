@@ -10,4 +10,11 @@ router.get("/me",auth(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),userController.g
 
 router.patch("/me",auth(Role.ADMIN,Role.CUSTOMER,Role.TECHNICIAN),userController.updateMyProfile);
 
+router.get("/",auth(Role.ADMIN),userController.getAllUsers
+);
+
+router.patch("/:id/status",auth(Role.ADMIN),userController.updateUserStatus
+);
+
+
 export const userRoutes = router;

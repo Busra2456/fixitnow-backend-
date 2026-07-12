@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../lib/prisma";
-import { PayloadRegisterUser } from "./user.interface"
+import { IUpdateUserStatus, PayloadRegisterUser } from "./user.interface"
 import config from "../../config";
 
 const registerUserIntoDB = async (payload :PayloadRegisterUser) =>{
@@ -28,14 +28,20 @@ const registerUserIntoDB = async (payload :PayloadRegisterUser) =>{
             
             
       });
-      if (role === "TECHNICIAN" && technicianProfile) {
-    await tx.technicianProfile.create({
-      data: {
-        ...technicianProfile,
-        userId: createUser.id
-      }
-    });
-  }
+     if (role === "TECHNICIAN") {
+  await tx.technicianProfile.create({
+    data: {
+      userId: createUser.id,
+      experience: technicianProfile?.experience ?? 0,
+      bio: technicianProfile?.bio ?? null,
+      location: technicianProfile?.location ?? "",
+      rating: 0,
+      isAvailable: true,
+      availableFrom: null,
+      availableTo: null,
+    },
+  });
+}
 
     return createUser
 })
@@ -95,8 +101,49 @@ const updateMyProfileInDB = async (
   return updatedUser;
 };
 
+const getAllUsersFromDB = async () => {
+  const users = await prisma.user.findMany({
+    omit: {
+      password: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return users;
+};
+
+const updateUserStatusIntoDB = async (
+  userId: string,
+  payload: IUpdateUserStatus
+) => {
+
+  const user = await prisma.user.findUniqueOrThrow({
+    where: {
+      id: userId,
+    },
+  });
+
+  const updatedUser = await prisma.user.update({
+    where: {
+      id: user.id,
+    },
+    data: {
+      activeStatus: payload.activeStatus,
+    },
+    omit: {
+      password: true,
+    },
+  });
+
+  return updatedUser;
+};
+
 export const userService = {
 registerUserIntoDB,
 getMyProfileFromDB,
-updateMyProfileInDB
+updateMyProfileInDB,
+getAllUsersFromDB,
+updateUserStatusIntoDB
 }
