@@ -10,6 +10,8 @@ import { bookingRoutes } from './modules/booking/booking.route';
 import { paymentRoutes } from './modules/payment/payment.route';
 import { reviewRoutes } from './modules/Review/review.route';
 import { technicianRoutes } from './modules/technician/technician.route';
+import { globalErrorHandler } from './middlewares/globalErrorHandler';
+import { notFound } from './middlewares/notFound';
 const app: Application = express();
 app.use(cors({
   origin : config.app_url,
@@ -31,6 +33,7 @@ app.use("/api/bookings", bookingRoutes);
 app.use("/api/payments",paymentRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/technicians", technicianRoutes);
-
+app.use(notFound)
+app.use(globalErrorHandler);
 export default app;
 
