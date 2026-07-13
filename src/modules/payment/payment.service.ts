@@ -146,7 +146,93 @@ const confirmPaymentIntoDB = async (paymentId: string) => {
   });
 };
 
+const paymentSuccessIntoDB = async (payload: any) => {
+  const payment = await prisma.payment.findUniqueOrThrow({
+    where: {
+      transactionId: payload.tran_id,
+    },
+  });
+
+  await prisma.$transaction(async (tx) => {
+
+    await tx.payment.update({
+      where: {
+        id: payment.id,
+      },
+      data: {
+        status: PaymentStatus.COMPLETED,
+        paidAt: new Date(),
+      },
+    });
+
+
+    await tx.booking.update({
+      where: {
+        id: payment.bookingId,
+      },
+      data: {
+        status: BookingStatus.PAID,
+      },
+    });
+
+  });
+
+
+  return prisma.payment.findUnique({
+    where: {
+      id: payment.id,
+    },
+  });
+};
+
+
+
+const paymentFailIntoDB = async (payload: any) => {
+
+  const payment = await prisma.payment.findUniqueOrThrow({
+    where: {
+      transactionId: payload.tran_id,
+    },
+  });
+
+
+  return prisma.payment.update({
+    where: {
+      id: payment.id,
+    },
+    data: {
+      status: PaymentStatus.FAILED,
+    },
+  });
+
+};
+
+
+
+const paymentCancelIntoDB = async (payload: any) => {
+
+  const payment = await prisma.payment.findUniqueOrThrow({
+    where: {
+      transactionId: payload.tran_id,
+    },
+  });
+
+
+  return prisma.payment.update({
+    where: {
+      id: payment.id,
+    },
+    data: {
+      status: PaymentStatus.CANCELLED,
+    },
+  });
+
+};
+
 export const paymentService = {
   createPaymentIntoDB,
   confirmPaymentIntoDB,
+  paymentCancelIntoDB,
+  paymentFailIntoDB,
+  paymentSuccessIntoDB
 };

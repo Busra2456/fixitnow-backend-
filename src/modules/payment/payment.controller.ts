@@ -40,10 +40,45 @@ const confirmPayment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const paymentSuccess = catchAsync(async (req: Request, res: Response) => {
+  const result = await paymentService.paymentSuccessIntoDB(req.body);
+
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: "Payment completed successfully",
+    data: result,
+  });
+});
 
 
+const paymentFail = catchAsync(async (req: Request, res: Response) => {
+  const result = await paymentService.paymentFailIntoDB(req.body);
+
+  sendResponse(res, {
+    success: false,
+    statusCode: httpStatus.BAD_REQUEST,
+    message: "Payment failed",
+    data: result,
+  });
+});
+
+
+const paymentCancel = catchAsync(async (req: Request, res: Response) => {
+  const result = await paymentService.paymentCancelIntoDB(req.body);
+
+  sendResponse(res, {
+    success: false,
+    statusCode: httpStatus.BAD_REQUEST,
+    message: "Payment cancelled",
+    data: result,
+  });
+});
 
 export const paymentController = {
   createPayment,
-  confirmPayment
+  confirmPayment,
+  paymentCancel,
+  paymentFail,
+  paymentSuccess
 };
