@@ -130,7 +130,16 @@ backend URL
 ```
 video link
 ```
+## Admin Credentials
 
+name:
+Admin
+
+Email:
+admin@gmail.com
+
+Password:
+123456
 
 ##  Setup Instructions
 
@@ -196,17 +205,7 @@ http://localhost:5000/api
 
 ---
 
-##  API Documentation
 
-Postman Collection:
-
-```text
-postman/FixItNow-Backend-API.postman_collection.json
-```
-
-All APIs were tested using Postman.
-
----
 
 ##  User Roles
 
