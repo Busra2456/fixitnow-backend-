@@ -109,7 +109,7 @@ const completeBooking = catchAsync(
     const technicianId = req.user!.id;
 
     const result = await technicianService.completeBookingIntoDB(
-      bookingId,
+      bookingId as string,
       technicianId
     );
 
