@@ -110,14 +110,8 @@ postman
 ###  GitHub Repository
 
 ```
-https://github.com/Busra2456/your-repository-name
-```
+https://github.com/Busra2456/fixitnow-backend-```
 
-###  Postman API Documentation
-
-```
-Postman Documentation Link
-```
 
 ###  Live Server URL
 

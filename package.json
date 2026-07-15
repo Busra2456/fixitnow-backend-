@@ -1,16 +1,15 @@
 {
-  "name": "prisma-press-backend",
+  "name": "fixitnow-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "FixItNow Backend API using Express, TypeScript, Prisma and PostgreSQL",
   "license": "ISC",
-  "author": "",
+  "author": "Busra",
   "type": "module",
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "stripe:webhook": "stripe listen --forward-to localhost:5000/api/subscription/webhook",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {

@@ -37,9 +37,11 @@ export const globalErrorHandler = (err: any, req: Request, res: Response, next: 
             errorMessage = "Error occurred during query execution"
     }
 
-    if (err instanceof Error) {
-  statusCode = httpStatus.BAD_REQUEST;
-  errorMessage = err.message;
+
+
+if (err instanceof Error && !statusCode) {
+    statusCode = httpStatus.BAD_REQUEST;
+    errorMessage = err.message;
 }
 
 
