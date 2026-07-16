@@ -4,7 +4,8 @@
   "description": "FixItNow Backend API using Express, TypeScript, Prisma and PostgreSQL",
   "license": "ISC",
   "author": "Busra",
-  "type": "module",
+    "type": "module",
+
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
