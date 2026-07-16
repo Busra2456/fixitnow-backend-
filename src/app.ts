@@ -1,17 +1,18 @@
 import express, { Application, Request, Response } from 'express';
-import config from './config';
 import cors from "cors";
-import { userRoutes } from './modules/user/user.route';
-import { authRoutes } from './modules/auth/auth.route';
+
 import cookieParser from 'cookie-parser';
-import { categoryRoutes } from './modules/category/category.route';
-import { serviceRoutes } from './modules/service/service.route';
-import { bookingRoutes } from './modules/booking/booking.route';
-import { paymentRoutes } from './modules/payment/payment.route';
-import { reviewRoutes } from './modules/Review/review.route';
-import { technicianRoutes } from './modules/technician/technician.route';
-import { globalErrorHandler } from './middlewares/globalErrorHandler';
-import { notFound } from './middlewares/notFound';
+import { notFound } from './middlewares/notFound.js';
+import { userRoutes } from './modules/user/user.route.js';
+import { authRoutes } from './modules/auth/auth.route.js';
+import { categoryRoutes } from './modules/category/category.route.js';
+import { serviceRoutes } from './modules/service/service.route.js';
+import { bookingRoutes } from './modules/booking/booking.route.js';
+import { paymentRoutes } from './modules/payment/payment.route.js';
+import { reviewRoutes } from './modules/Review/review.route.js';
+import { technicianRoutes } from './modules/technician/technician.route.js';
+import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
+import config from './config';
 const app: Application = express();
 app.use(cors({
   origin : config.app_url,
