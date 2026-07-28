@@ -1,8 +1,32 @@
+// {
+//   "compilerOptions": {
+//     "outDir": "./dist",
+//     "module": "ESNext",
+//     "moduleResolution": "NodeNext",
+//     "target": "ES2023",
+//     "types": ["node"],
+//     "sourceMap": true,
+//     "declaration": true,
+//     "declarationMap": true,
+//     "noUncheckedIndexedAccess": true,
+//     "strict": true,
+//     "isolatedModules": true,
+//     "noUncheckedSideEffectImports": true,
+//     "moduleDetection": "force",
+//     "skipLibCheck": true,
+//     "esModuleInterop": true
+//   },
+//  "include": [
+//   "src/**/*",
+//   "api/**/*"
+// ],
+//   "exclude": []
+// }
 {
   "compilerOptions": {
     "outDir": "./dist",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
     "target": "ES2023",
     "types": ["node"],
     "sourceMap": true,
@@ -16,9 +40,8 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
- "include": [
-  "src/**/*",
-  "api/**/*"
-],
-  "exclude": []
+  "include": [
+    "src/**/*",
+    "api/**/*"
+  ]
 }

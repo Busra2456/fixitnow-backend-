@@ -12,13 +12,13 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace"
+import type * as Prisma from "./prismaNamespace.js"
 
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.8.0",
-  "engineVersion": "3c6e192761c0362d496ed980de936e2f3cebcd3a",
+  "clientVersion": "7.9.1",
+  "engineVersion": "e922089b7d7502aff4249d5da3420f6fa55fc6ad",
   "activeProvider": "postgresql",
   "inlineSchema": "model Booking {\n  id           String        @id @default(uuid())\n  customerId   String\n  technicianId String\n  serviceId    String\n  bookingDate  DateTime\n  totalPrice   Float\n  status       BookingStatus @default(REQUESTED)\n  createdAt    DateTime      @default(now())\n  updatedAt    DateTime      @updatedAt\n  customer     User          @relation(\"CustomerBookings\", fields: [customerId], references: [id])\n  service      Service       @relation(fields: [serviceId], references: [id])\n  technician   User          @relation(\"TechnicianBookings\", fields: [technicianId], references: [id])\n  payment      Payment?\n  review       Review?\n\n  @@map(\"bookings\")\n}\n\nmodel Category {\n  id          String    @id @default(uuid())\n  name        String    @unique\n  description String?\n  createdAt   DateTime  @default(now())\n  updatedAt   DateTime  @updatedAt\n  services    Service[]\n\n  @@map(\"categories\")\n}\n\nenum Role {\n  CUSTOMER\n  TECHNICIAN\n  ADMIN\n}\n\nenum ActiveStatus {\n  ACTIVE\n  BLOCKED\n}\n\nenum BookingStatus {\n  REQUESTED\n  ACCEPTED\n  DECLINED\n  PAID\n  IN_PROGRESS\n  COMPLETED\n  CANCELLED\n}\n\nenum PaymentProvider {\n  STRIPE\n  SSLCOMMERZ\n}\n\nenum PaymentStatus {\n  PENDING\n  COMPLETED\n  FAILED\n  CANCELLED\n}\n\nmodel Payment {\n  id            String          @id @default(uuid())\n  bookingId     String          @unique\n  transactionId String?         @unique\n  amount        Float\n  provider      PaymentProvider\n  status        PaymentStatus   @default(PENDING)\n  paidAt        DateTime?\n  createdAt     DateTime        @default(now())\n  booking       Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n\n  @@map(\"payments\")\n}\n\nmodel Review {\n  id           String   @id @default(uuid())\n  rating       Int\n  comment      String?\n  bookingId    String   @unique\n  customerId   String\n  technicianId String\n  createdAt    DateTime @default(now())\n  booking      Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)\n  customer     User     @relation(\"CustomerReviews\", fields: [customerId], references: [id])\n  technician   User     @relation(\"TechnicianReviews\", fields: [technicianId], references: [id])\n\n  @@map(\"reviews\")\n}\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Service {\n  id           String    @id @default(uuid())\n  title        String\n  description  String\n  price        Float\n  technicianId String\n  categoryId   String\n  createdAt    DateTime  @default(now())\n  updatedAt    DateTime  @updatedAt\n  bookings     Booking[]\n  category     Category  @relation(fields: [categoryId], references: [id])\n  technician   User      @relation(\"TechnicianServices\", fields: [technicianId], references: [id], onDelete: Cascade)\n\n  @@map(\"services\")\n}\n\nmodel TechnicianProfile {\n  id            String  @id @default(uuid())\n  experience    Int\n  bio           String?\n  location      String\n  rating        Float   @default(0)\n  isAvailable   Boolean @default(true)\n  availableFrom String?\n  availableTo   String?\n\n  userId String @unique\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@map(\"technician_profiles\")\n}\n\nmodel User {\n  id                 String             @id @default(uuid())\n  name               String\n  email              String             @unique\n  password           String\n  phone              String?\n  role               Role               @default(CUSTOMER)\n  createdAt          DateTime           @default(now())\n  updatedAt          DateTime           @updatedAt\n  activeStatus       ActiveStatus       @default(ACTIVE)\n  customerBookings   Booking[]          @relation(\"CustomerBookings\")\n  technicianBookings Booking[]          @relation(\"TechnicianBookings\")\n  customerReviews    Review[]           @relation(\"CustomerReviews\")\n  technicianReviews  Review[]           @relation(\"TechnicianReviews\")\n  servicesCreated    Service[]          @relation(\"TechnicianServices\")\n  technicianProfile  TechnicianProfile?\n\n  @@map(\"users\")\n}\n",
   "runtimeDataModel": {
@@ -82,7 +82,7 @@ export interface PrismaClientConstructor {
     LogOpts extends LogOptions<Options> = LogOptions<Options>,
     OmitOpts extends Prisma.PrismaClientOptions['omit'] = Options extends { omit: infer U } ? U : Prisma.PrismaClientOptions['omit'],
     ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
-  >(options: Prisma.Subset<Options, Prisma.PrismaClientOptions> ): PrismaClient<LogOpts, OmitOpts, ExtArgs>
+  >(options: Prisma.PrismaClientConstructorArgs<Options>): PrismaClient<LogOpts, OmitOpts, ExtArgs>
 }
 
 /**
@@ -103,7 +103,7 @@ export interface PrismaClientConstructor {
 
 export interface PrismaClient<
   in LogOpts extends Prisma.LogLevel = never,
-  in out OmitOpts extends Prisma.PrismaClientOptions['omit'] = undefined,
+  in out OmitOpts extends Prisma.PrismaClientOptions['omit'] = Prisma.PrismaClientOptions['omit'],
   in out ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs
 > {
   [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['other'] }
