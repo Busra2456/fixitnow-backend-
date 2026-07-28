@@ -28,20 +28,15 @@
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "target": "ES2023",
+    "lib": ["ES2023"],
     "types": ["node"],
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
     "strict": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    "moduleDetection": "force",
-    "skipLibCheck": true,
-    "esModuleInterop": true
+    "skipLibCheck": true
   },
-  "include": [
-    "src/**/*",
-    "api/**/*"
-  ]
+ "include": [
+  "src/**/*",
+  "api/**/*",
+  "prisma.config.ts"
+]
 }
