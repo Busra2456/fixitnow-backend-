@@ -9,7 +9,7 @@
   "main": "server.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "build": "prisma generate && tsup",
+    "build": "tse",
     "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
