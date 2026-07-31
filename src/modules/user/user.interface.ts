@@ -1,4 +1,4 @@
-import { ActiveStatus } from "../../../generated/prisma/enums";
+import { ActiveStatus } from "../../../generated/prisma/enums.js";
 
 
 export interface PayloadRegisterUser {

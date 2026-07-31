@@ -1,6 +1,6 @@
-import { prisma } from "../../lib/prisma";
-import { BookingStatus } from "../../../generated/prisma/enums";
-import { ICreateReview } from "./review.interface";
+import { prisma } from "../../lib/prisma.js";
+import { BookingStatus } from "../../../generated/prisma/enums.js";
+import { ICreateReview } from "./review.interface.js";
 
 const createReviewIntoDB = async (
   customerId: string,

@@ -1,5 +1,5 @@
-import { prisma } from "../../lib/prisma";
-import { ICreateService } from "./service.interface";
+import { prisma } from "../../lib/prisma.js";
+import { ICreateService } from "./service.interface.js";
 
 const createServiceIntoDB = async (
   technicianId: string,

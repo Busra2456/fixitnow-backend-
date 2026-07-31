@@ -1,7 +1,7 @@
 import bcrypt from "bcryptjs";
-import { prisma } from "../../lib/prisma";
-import { IUpdateUserStatus, PayloadRegisterUser } from "./user.interface"
-import config from "../../config";
+import { prisma } from "../../lib/prisma.js";
+import { IUpdateUserStatus, PayloadRegisterUser } from "./user.interface.js"
+import config from "../../config/index.js";
 
 const registerUserIntoDB = async (payload :PayloadRegisterUser) =>{
       const { name, email, password, phone, role, technicianProfile} = payload;

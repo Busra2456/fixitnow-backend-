@@ -1,8 +1,8 @@
-import { prisma } from "../../lib/prisma";
-import { ICreatePayment } from "./payment.interface";
-import { BookingStatus, PaymentStatus } from "../../../generated/prisma/enums";
+import { prisma } from "../../lib/prisma.js";
+import { ICreatePayment } from "./payment.interface.js";
+import { BookingStatus, PaymentStatus } from "../../../generated/prisma/enums.js";
 import SSLCommerzPayment from "sslcommerz-lts";
-import config from "../../config";
+import config from "../../config/index.js";
 
 const createPaymentIntoDB = async (
   customerId: string,

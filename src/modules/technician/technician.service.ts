@@ -1,6 +1,6 @@
-import { Role } from "../../../generated/prisma/enums";
-import { prisma } from "../../lib/prisma";
-import { IUpdateAvailability, IUpdateTechnicianProfile } from "./technician.interface";
+import { Role } from "../../../generated/prisma/enums.js";
+import { prisma } from "../../lib/prisma.js";
+import { IUpdateAvailability, IUpdateTechnicianProfile } from "./technician.interface.js";
 
 const updateAvailabilityIntoDB = async (
   userId: string,

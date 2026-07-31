@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { technicianService } from "./technician.service";
-import { catchAsync } from "../../utils/catchAsync";
-import { sendResponse } from "../../utils/sendResponse";
+import { technicianService } from "./technician.service.js";
+import { catchAsync } from "../../utils/catchAsync.js";
+import { sendResponse } from "../../utils/sendResponse.js";
 
 const updateAvailability = catchAsync(
   async (req: Request, res: Response) => {
