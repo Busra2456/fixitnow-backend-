@@ -124,16 +124,7 @@ backend URL
 ```
 video link
 ```
-## Admin Credentials
 
-name:
-Admin
-
-Email:
-admin@gmail.com
-
-Password:
-123456
 
 ##  Setup Instructions
 
