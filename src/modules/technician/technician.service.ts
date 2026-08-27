@@ -140,6 +140,20 @@ const getTechnicianBookingsFromDB = async (userId: string) => {
   return bookings;
 };
 
+const getTechnicianProfileFromDB = async (userId: string) => {
+  const profile = await prisma.technicianProfile.findUnique({
+    where: {
+      userId,
+    },
+  });
+
+  if (!profile) {
+    throw new Error("Technician profile not found");
+  }
+
+  return profile;
+};
+
 const startBookingIntoDB = async (
   bookingId: string,
   technicianId: string
@@ -236,5 +250,6 @@ export const technicianService = {
   getTechnicianBookingsFromDB,
   startBookingIntoDB,
   completeBookingIntoDB,
-  getMyServicesFromDB
+  getMyServicesFromDB,
+  getTechnicianProfileFromDB
 };

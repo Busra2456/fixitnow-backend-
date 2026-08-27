@@ -62,22 +62,15 @@ const paymentFail = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-
 const paymentCancel = catchAsync(
   async (req: Request, res: Response) => {
-   await paymentService.paymentCancelIntoDB(req.body);
-   
-    res.redirect(
-    `${config.frontend_url}/payment/cancel`
-  );
 
-  // sendResponse(res, {
-  //   success: true,
-  //   statusCode: httpStatus.OK,
-  //   message: "Payment cancelled successfully",
-  //   data: result,
-  // });
-});
+    await paymentService.paymentCancelIntoDB(req.body);
+   res.redirect(
+      `${config.frontend_url}/payment/cancel`
+    );
+  }
+);
 
 export const paymentController = {
   createPayment,

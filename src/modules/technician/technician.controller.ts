@@ -54,7 +54,21 @@ const getSingleTechnician = catchAsync(
   }
 );
 
+const getTechnicianProfile = catchAsync(
+  async (req: Request, res: Response) => {
+    const result =
+      await technicianService.getTechnicianProfileFromDB(
+        req.user!.id
+      );
 
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "Technician profile retrieved successfully",
+      data: result,
+    });
+  }
+);
 
 const updateTechnicianProfile = catchAsync(
   async (req: Request, res: Response) => {
@@ -153,5 +167,6 @@ export const technicianController = {
   getTechnicianBookings,
   startBooking,
   completeBooking,
-  getMyServices
+  getMyServices,
+  getTechnicianProfile
 };

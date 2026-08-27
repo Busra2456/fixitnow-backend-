@@ -13,6 +13,11 @@ router.get(
   auth(Role.TECHNICIAN),
   technicianController.getMyServices
 );
+router.get(
+  "/profile",
+  auth(Role.TECHNICIAN),
+  technicianController.getTechnicianProfile
+);
 router.get("/:id",technicianController.getSingleTechnician);
 router.put("/profile",auth(Role.TECHNICIAN),technicianController.updateTechnicianProfile);
 router.put("/availability",auth(Role.TECHNICIAN),technicianController.updateAvailability);
