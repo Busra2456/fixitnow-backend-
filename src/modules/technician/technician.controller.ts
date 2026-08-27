@@ -6,9 +6,12 @@ import { sendResponse } from "../../utils/sendResponse.js";
 const updateAvailability = catchAsync(
   async (req: Request, res: Response) => {
       const availability = req.user!.id
+          // const userId = req.user!.id;
+
 
     const result = await technicianService.updateAvailabilityIntoDB(
       availability as string,
+      // userId,
       req.body
     );
 
@@ -50,6 +53,8 @@ const getSingleTechnician = catchAsync(
     });
   }
 );
+
+
 
 const updateTechnicianProfile = catchAsync(
   async (req: Request, res: Response) => {
@@ -103,6 +108,7 @@ const startBooking = catchAsync(
   }
 );
 
+
 const completeBooking = catchAsync(
   async (req: Request, res: Response) => {
     const bookingId = req.params.id;
@@ -121,6 +127,23 @@ const completeBooking = catchAsync(
     });
   }
 );
+const getMyServices = catchAsync(
+  async (req: Request, res: Response) => {
+    const technicianId = req.user!.id;
+
+    const result =
+      await technicianService.getMyServicesFromDB(
+        technicianId
+      );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: 200,
+      message: "Technician services retrieved successfully",
+      data: result,
+    });
+  }
+);
 
 export const technicianController = {
   updateAvailability,
@@ -129,5 +152,6 @@ export const technicianController = {
   updateTechnicianProfile,
   getTechnicianBookings,
   startBooking,
-  completeBooking
+  completeBooking,
+  getMyServices
 };

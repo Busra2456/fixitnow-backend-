@@ -45,6 +45,7 @@ export type TechnicianProfileMinAggregateOutputType = {
   isAvailable: boolean | null
   availableFrom: string | null
   availableTo: string | null
+  image: string | null
   userId: string | null
 }
 
@@ -57,6 +58,7 @@ export type TechnicianProfileMaxAggregateOutputType = {
   isAvailable: boolean | null
   availableFrom: string | null
   availableTo: string | null
+  image: string | null
   userId: string | null
 }
 
@@ -69,6 +71,7 @@ export type TechnicianProfileCountAggregateOutputType = {
   isAvailable: number
   availableFrom: number
   availableTo: number
+  image: number
   userId: number
   _all: number
 }
@@ -93,6 +96,7 @@ export type TechnicianProfileMinAggregateInputType = {
   isAvailable?: true
   availableFrom?: true
   availableTo?: true
+  image?: true
   userId?: true
 }
 
@@ -105,6 +109,7 @@ export type TechnicianProfileMaxAggregateInputType = {
   isAvailable?: true
   availableFrom?: true
   availableTo?: true
+  image?: true
   userId?: true
 }
 
@@ -117,6 +122,7 @@ export type TechnicianProfileCountAggregateInputType = {
   isAvailable?: true
   availableFrom?: true
   availableTo?: true
+  image?: true
   userId?: true
   _all?: true
 }
@@ -216,6 +222,7 @@ export type TechnicianProfileGroupByOutputType = {
   isAvailable: boolean
   availableFrom: string | null
   availableTo: string | null
+  image: string | null
   userId: string
   _count: TechnicianProfileCountAggregateOutputType | null
   _avg: TechnicianProfileAvgAggregateOutputType | null
@@ -251,6 +258,7 @@ export type TechnicianProfileWhereInput = {
   isAvailable?: Prisma.BoolFilter<"TechnicianProfile"> | boolean
   availableFrom?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
   availableTo?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
+  image?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
   userId?: Prisma.StringFilter<"TechnicianProfile"> | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
@@ -264,6 +272,7 @@ export type TechnicianProfileOrderByWithRelationInput = {
   isAvailable?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   availableTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
 }
@@ -281,6 +290,7 @@ export type TechnicianProfileWhereUniqueInput = Prisma.AtLeast<{
   isAvailable?: Prisma.BoolFilter<"TechnicianProfile"> | boolean
   availableFrom?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
   availableTo?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
+  image?: Prisma.StringNullableFilter<"TechnicianProfile"> | string | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id" | "userId">
 
@@ -293,6 +303,7 @@ export type TechnicianProfileOrderByWithAggregationInput = {
   isAvailable?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrderInput | Prisma.SortOrder
   availableTo?: Prisma.SortOrderInput | Prisma.SortOrder
+  image?: Prisma.SortOrderInput | Prisma.SortOrder
   userId?: Prisma.SortOrder
   _count?: Prisma.TechnicianProfileCountOrderByAggregateInput
   _avg?: Prisma.TechnicianProfileAvgOrderByAggregateInput
@@ -313,6 +324,7 @@ export type TechnicianProfileScalarWhereWithAggregatesInput = {
   isAvailable?: Prisma.BoolWithAggregatesFilter<"TechnicianProfile"> | boolean
   availableFrom?: Prisma.StringNullableWithAggregatesFilter<"TechnicianProfile"> | string | null
   availableTo?: Prisma.StringNullableWithAggregatesFilter<"TechnicianProfile"> | string | null
+  image?: Prisma.StringNullableWithAggregatesFilter<"TechnicianProfile"> | string | null
   userId?: Prisma.StringWithAggregatesFilter<"TechnicianProfile"> | string
 }
 
@@ -325,6 +337,7 @@ export type TechnicianProfileCreateInput = {
   isAvailable?: boolean
   availableFrom?: string | null
   availableTo?: string | null
+  image?: string | null
   user: Prisma.UserCreateNestedOneWithoutTechnicianProfileInput
 }
 
@@ -337,6 +350,7 @@ export type TechnicianProfileUncheckedCreateInput = {
   isAvailable?: boolean
   availableFrom?: string | null
   availableTo?: string | null
+  image?: string | null
   userId: string
 }
 
@@ -349,6 +363,7 @@ export type TechnicianProfileUpdateInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   user?: Prisma.UserUpdateOneRequiredWithoutTechnicianProfileNestedInput
 }
 
@@ -361,6 +376,7 @@ export type TechnicianProfileUncheckedUpdateInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -373,6 +389,7 @@ export type TechnicianProfileCreateManyInput = {
   isAvailable?: boolean
   availableFrom?: string | null
   availableTo?: string | null
+  image?: string | null
   userId: string
 }
 
@@ -385,6 +402,7 @@ export type TechnicianProfileUpdateManyMutationInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TechnicianProfileUncheckedUpdateManyInput = {
@@ -396,6 +414,7 @@ export type TechnicianProfileUncheckedUpdateManyInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   userId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -408,6 +427,7 @@ export type TechnicianProfileCountOrderByAggregateInput = {
   isAvailable?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   availableTo?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -425,6 +445,7 @@ export type TechnicianProfileMaxOrderByAggregateInput = {
   isAvailable?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   availableTo?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -437,6 +458,7 @@ export type TechnicianProfileMinOrderByAggregateInput = {
   isAvailable?: Prisma.SortOrder
   availableFrom?: Prisma.SortOrder
   availableTo?: Prisma.SortOrder
+  image?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -495,6 +517,7 @@ export type TechnicianProfileCreateWithoutUserInput = {
   isAvailable?: boolean
   availableFrom?: string | null
   availableTo?: string | null
+  image?: string | null
 }
 
 export type TechnicianProfileUncheckedCreateWithoutUserInput = {
@@ -506,6 +529,7 @@ export type TechnicianProfileUncheckedCreateWithoutUserInput = {
   isAvailable?: boolean
   availableFrom?: string | null
   availableTo?: string | null
+  image?: string | null
 }
 
 export type TechnicianProfileCreateOrConnectWithoutUserInput = {
@@ -533,6 +557,7 @@ export type TechnicianProfileUpdateWithoutUserInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type TechnicianProfileUncheckedUpdateWithoutUserInput = {
@@ -544,6 +569,7 @@ export type TechnicianProfileUncheckedUpdateWithoutUserInput = {
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
   availableFrom?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   availableTo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -557,6 +583,7 @@ export type TechnicianProfileSelect<ExtArgs extends runtime.Types.Extensions.Int
   isAvailable?: boolean
   availableFrom?: boolean
   availableTo?: boolean
+  image?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["technicianProfile"]>
@@ -570,6 +597,7 @@ export type TechnicianProfileSelectCreateManyAndReturn<ExtArgs extends runtime.T
   isAvailable?: boolean
   availableFrom?: boolean
   availableTo?: boolean
+  image?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["technicianProfile"]>
@@ -583,6 +611,7 @@ export type TechnicianProfileSelectUpdateManyAndReturn<ExtArgs extends runtime.T
   isAvailable?: boolean
   availableFrom?: boolean
   availableTo?: boolean
+  image?: boolean
   userId?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["technicianProfile"]>
@@ -596,10 +625,11 @@ export type TechnicianProfileSelectScalar = {
   isAvailable?: boolean
   availableFrom?: boolean
   availableTo?: boolean
+  image?: boolean
   userId?: boolean
 }
 
-export type TechnicianProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "experience" | "bio" | "location" | "rating" | "isAvailable" | "availableFrom" | "availableTo" | "userId", ExtArgs["result"]["technicianProfile"]>
+export type TechnicianProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "experience" | "bio" | "location" | "rating" | "isAvailable" | "availableFrom" | "availableTo" | "image" | "userId", ExtArgs["result"]["technicianProfile"]>
 export type TechnicianProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -624,6 +654,7 @@ export type $TechnicianProfilePayload<ExtArgs extends runtime.Types.Extensions.I
     isAvailable: boolean
     availableFrom: string | null
     availableTo: string | null
+    image: string | null
     userId: string
   }, ExtArgs["result"]["technicianProfile"]>
   composites: {}
@@ -1057,6 +1088,7 @@ export interface TechnicianProfileFieldRefs {
   readonly isAvailable: Prisma.FieldRef<"TechnicianProfile", 'Boolean'>
   readonly availableFrom: Prisma.FieldRef<"TechnicianProfile", 'String'>
   readonly availableTo: Prisma.FieldRef<"TechnicianProfile", 'String'>
+  readonly image: Prisma.FieldRef<"TechnicianProfile", 'String'>
   readonly userId: Prisma.FieldRef<"TechnicianProfile", 'String'>
 }
     

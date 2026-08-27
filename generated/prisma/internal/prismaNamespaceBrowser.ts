@@ -152,6 +152,7 @@ export const TechnicianProfileScalarFieldEnum = {
   isAvailable: 'isAvailable',
   availableFrom: 'availableFrom',
   availableTo: 'availableTo',
+  image: 'image',
   userId: 'userId'
 } as const
 

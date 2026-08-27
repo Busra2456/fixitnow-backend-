@@ -50,6 +50,8 @@ const getAllServicesFromDB = async () => {
   return services;
 };
 
+
+
 const getSingleServiceFromDB = async (id:string)=>{
 
 const service = await prisma.service.findUniqueOrThrow({
@@ -67,6 +69,26 @@ const service = await prisma.service.findUniqueOrThrow({
   });
 
   return service;
+};
+const getMyServicesFromDB = async (technicianId: string) => {
+  const services = await prisma.service.findMany({
+    where: {
+      technicianId,
+    },
+    include: {
+      category: true,
+      technician: {
+        omit: {
+          password: true,
+        },
+      },
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return services;
 };
 
 const updateServiceIntoDB = async (
@@ -131,6 +153,8 @@ const deleteServiceFromDB = async(
  });
 
 
+
+
  if(service.technicianId !== technicianId){
     throw new Error("You can delete only your own service");
  }
@@ -151,5 +175,6 @@ export const serviceService = {
   getAllServicesFromDB,
   getSingleServiceFromDB,
   updateServiceIntoDB,
-  deleteServiceFromDB
+  deleteServiceFromDB,
+  getMyServicesFromDB
 };

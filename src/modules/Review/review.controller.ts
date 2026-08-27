@@ -21,7 +21,32 @@ const createReview = catchAsync(
     });
   }
 );
+const getReviewsByTechnician = catchAsync(
+  async (req: Request, res: Response) => {
+    const technicianId = req.params.technicianId;
+
+    if (!technicianId || Array.isArray(technicianId)) {
+      throw new Error("Technician ID is required");
+    }
+
+    const result =
+      await reviewService.getReviewsByTechnicianFromDB(
+        technicianId
+      );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "Reviews retrieved successfully",
+      data: result,
+    });
+  }
+);
+
+
+
 
 export const reviewController = {
   createReview,
+  getReviewsByTechnician
 };

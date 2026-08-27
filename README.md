@@ -116,7 +116,7 @@ https://github.com/Busra2456/fixitnow-backend-```
 ###  Live Server URL
 
 ```
-backend URL
+backend URL : https://fixitnow-backend-six.vercel.app
 ```
 
 ###  Project Demo Video (Optional)

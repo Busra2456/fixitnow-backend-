@@ -210,23 +210,40 @@ const paymentFailIntoDB = async (payload: any) => {
 
 
 const paymentCancelIntoDB = async (payload: any) => {
-
   const payment = await prisma.payment.findUniqueOrThrow({
     where: {
       transactionId: payload.tran_id,
     },
   });
 
+  await prisma.$transaction(async (tx) => {
+    await tx.payment.update({
+      where: {
+        id: payment.id,
+      },
+      data: {
+        status: PaymentStatus.CANCELLED,
+      },
+    });
 
-  return prisma.payment.update({
+    await tx.booking.update({
+      where: {
+        id: payment.bookingId,
+      },
+      data: {
+        status: BookingStatus.CANCELLED,
+      },
+    });
+  });
+
+  return prisma.payment.findUnique({
     where: {
       id: payment.id,
     },
-    data: {
-      status: PaymentStatus.CANCELLED,
+    include: {
+      booking: true,
     },
   });
-
 };
 
 export const paymentService = {

@@ -17,7 +17,7 @@ import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
 import config from "./config/index.js";
 const app: Application = express();
 app.use(cors({
-  origin : config.app_url,
+  origin : config.frontend_url,
   credentials :true
 }))
 app.use(express.json());
@@ -32,12 +32,12 @@ app.get('/',async(req: Request, res: Response) => {
 
 app.use("/api/users",userRoutes)
 app.use("/api/auth",authRoutes)
-app.use("/api/categories", categoryRoutes);
-app.use("/api/services", serviceRoutes);
-app.use("/api/bookings", bookingRoutes);
+app.use("/api/categories",categoryRoutes);
+app.use("/api/services",serviceRoutes);
+app.use("/api/bookings",bookingRoutes);
 app.use("/api/payments",paymentRoutes);
-app.use("/api/reviews", reviewRoutes);
-app.use("/api/technicians", technicianRoutes);
+app.use("/api/reviews",reviewRoutes);
+app.use("/api/technicians",technicianRoutes);
 app.use(notFound)
 app.use(globalErrorHandler);
 export default app;

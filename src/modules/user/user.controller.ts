@@ -19,6 +19,8 @@ const registerUser = catchAsync(async(req:Request,res: Response)=>{
 
 })
 
+
+
 const getMyProfile = catchAsync(async (req: Request, res: Response) => {
   const user = await userService.getMyProfileFromDB(req.user!.id);
 

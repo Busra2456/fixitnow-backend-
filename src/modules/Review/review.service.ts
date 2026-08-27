@@ -59,6 +59,44 @@ const createReviewIntoDB = async (
   return review;
 };
 
+const getReviewsByTechnicianFromDB = async (
+  technicianId: string
+) => {
+  const reviews = await prisma.review.findMany({
+    where: {
+      technicianId,
+    },
+
+    orderBy: {
+      createdAt: "desc",
+    },
+
+    include: {
+      customer: {
+        omit: {
+          password: true,
+        },
+      },
+
+      technician: {
+        omit: {
+          password: true,
+        },
+      },
+
+      booking: {
+        include: {
+          service: true,
+        },
+      },
+    },
+  });
+
+  return reviews;
+};
+
+
 export const reviewService = {
   createReviewIntoDB,
+  getReviewsByTechnicianFromDB
 };

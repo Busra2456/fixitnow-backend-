@@ -1,3 +1,13 @@
-dist
-node_modules
-.vercel
+node_modules/
+dist/
+.vercel/
+.env
+.env.local
+.env.*.local
+
+# Prisma
+generated/
+
+# Logs
+*.log
+npm

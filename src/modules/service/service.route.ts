@@ -7,8 +7,15 @@ const router = Router();
 
 router.post("/",auth(Role.TECHNICIAN),serviceController.createService
 );
-router.get("/", serviceController.getAllServices);
-router.get("/:id", serviceController.getSingleService);
+router.get("/",serviceController.getAllServices);
+
+router.get(
+  "/my-services",
+  auth(Role.TECHNICIAN),
+  serviceController.getMyServices
+);
+
+router.get("/:id",serviceController.getSingleService);
 router.patch(
  "/:id",auth(Role.TECHNICIAN),serviceController.updateService
 );

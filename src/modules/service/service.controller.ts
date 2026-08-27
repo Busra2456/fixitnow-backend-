@@ -32,6 +32,24 @@ const getAllServices = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const getMyServices = catchAsync(
+  async (req: Request, res: Response) => {
+    const technicianId = req.user!.id;
+
+    const services =
+      await serviceService.getMyServicesFromDB(
+        technicianId
+      );
+
+    sendResponse(res, {
+      success: true,
+      statusCode: httpStatus.OK,
+      message: "My services retrieved successfully",
+      data: services,
+    });
+  }
+);
+
 const getSingleService = catchAsync(async (req: Request, res: Response) => {
 const  id  = req.params.id;
   const service = await serviceService.getSingleServiceFromDB(id as string
@@ -90,6 +108,7 @@ const deleteService = catchAsync(async(req:Request,res:Response)=>{
 export const serviceController = {
   createService,
   getAllServices,
+  getMyServices,
   getSingleService,
   updateService,
   deleteService

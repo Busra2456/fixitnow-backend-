@@ -212,6 +212,22 @@ const completeBookingIntoDB = async (
   });
 };
 
+const getMyServicesFromDB = async (technicianId: string) => {
+  const services = await prisma.service.findMany({
+    where: {
+      technicianId,
+    },
+    include: {
+      category: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  return services;
+};
+
 export const technicianService = {
   updateAvailabilityIntoDB,
   getAllTechniciansFromDB,
@@ -219,5 +235,6 @@ export const technicianService = {
   updateTechnicianProfileIntoDB,
   getTechnicianBookingsFromDB,
   startBookingIntoDB,
-  completeBookingIntoDB
+  completeBookingIntoDB,
+  getMyServicesFromDB
 };

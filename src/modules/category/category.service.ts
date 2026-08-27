@@ -50,12 +50,32 @@ const updateCategoryIntoDB = async (
     },
   });
 
+   if (payload.name) {
+    const existingCategory =
+      await prisma.category.findFirst({
+        where: {
+          name: payload.name,
+          NOT: {
+            id: categoryId,
+          },
+        },
+      });
+
+    if (existingCategory) {
+      throw new Error(
+        "Category already exists"
+      );
+    }
+  }
+
+
   return await prisma.category.update({
     where: {
       id: categoryId,
     },
     data: payload,
   });
+
 };
 
 const deleteCategoryFromDB = async (categoryId: string) => {

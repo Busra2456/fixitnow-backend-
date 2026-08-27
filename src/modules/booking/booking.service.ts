@@ -14,7 +14,11 @@ const createBookingIntoDB = async (
     },
   });
 
+const bookingDate = new Date(payload.bookingDate);
 
+  if (Number.isNaN(bookingDate.getTime())) {
+    throw new Error("Invalid booking date");
+  }
 
 
   const booking = await prisma.booking.create({
@@ -22,7 +26,7 @@ const createBookingIntoDB = async (
       customerId,
       technicianId: service.technicianId,
       serviceId: service.id,
-      bookingDate: payload.bookingDate,
+      bookingDate: bookingDate,
       totalPrice: service.price,
     },
     include: {
@@ -224,11 +228,66 @@ const updateBookingStatusIntoDB = async (
 
   return updatedBooking;
 };
+const cancelBookingIntoDB = async (
+  bookingId: string,
+  customerId: string
+) => {
+  const booking = await prisma.booking.findUniqueOrThrow({
+    where: {
+      id: bookingId,
+    },
+  });
+
+  if (booking.customerId !== customerId) {
+    throw new Error(
+      "You can cancel only your own bookings"
+    );
+  }
+
+  if (
+    booking.status !== BookingStatus.REQUESTED &&
+    booking.status !== BookingStatus.ACCEPTED &&
+    booking.status !== BookingStatus.PAID
+  ) {
+    throw new Error(
+      "This booking cannot be cancelled"
+    );
+  }
+
+  const cancelledBooking = await prisma.booking.update({
+    where: {
+      id: bookingId,
+    },
+    data: {
+      status: BookingStatus.CANCELLED,
+    },
+    include: {
+      customer: {
+        omit: {
+          password: true,
+        },
+      },
+      technician: {
+        omit: {
+          password: true,
+        },
+      },
+      service: {
+        include: {
+          category: true,
+        },
+      },
+    },
+  });
+
+  return cancelledBooking;
+};
 
 
 export const bookingService = {
   createBookingIntoDB,
   getAllBookingsFromDB,
   getSingleBookingFromDB,
-  updateBookingStatusIntoDB
+  updateBookingStatusIntoDB,
+  cancelBookingIntoDB
 };

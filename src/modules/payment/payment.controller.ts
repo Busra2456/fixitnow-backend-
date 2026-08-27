@@ -3,6 +3,7 @@ import httpStatus from "http-status";
 import { catchAsync } from "../../utils/catchAsync.js";
 import { sendResponse } from "../../utils/sendResponse.js";
 import { paymentService } from "./payment.service.js";
+import config from "../../config/index.js";
 
 
 
@@ -40,17 +41,15 @@ const confirmPayment = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-const paymentSuccess = catchAsync(async (req: Request, res: Response) => {
-  const result = await paymentService.paymentSuccessIntoDB(req.body);
+const paymentSuccess = catchAsync(
+  async (req: Request, res: Response) => {
+    await paymentService.paymentSuccessIntoDB(req.body);
 
-  sendResponse(res, {
-    success: true,
-    statusCode: httpStatus.OK,
-    message: "Payment completed successfully",
-    data: result,
-  });
-});
-
+    res.redirect(
+      `${config.frontend_url}/payment/success`
+    );
+  }
+);
 
 const paymentFail = catchAsync(async (req: Request, res: Response) => {
   const result = await paymentService.paymentFailIntoDB(req.body);
@@ -66,13 +65,16 @@ const paymentFail = catchAsync(async (req: Request, res: Response) => {
 
 const paymentCancel = catchAsync(async (req: Request, res: Response) => {
   const result = await paymentService.paymentCancelIntoDB(req.body);
+   return res.redirect(
+    `${config.frontend_url}/payment/cancel`
+  );
 
-  sendResponse(res, {
-    success: false,
-    statusCode: httpStatus.BAD_REQUEST,
-    message: "Payment cancelled",
-    data: result,
-  });
+  // sendResponse(res, {
+  //   success: true,
+  //   statusCode: httpStatus.OK,
+  //   message: "Payment cancelled successfully",
+  //   data: result,
+  // });
 });
 
 export const paymentController = {
