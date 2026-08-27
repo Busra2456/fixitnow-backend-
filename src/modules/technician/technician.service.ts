@@ -148,12 +148,11 @@ const getTechnicianProfileFromDB = async (userId: string) => {
   });
 
   if (!profile) {
-    throw new Error("Technician profile not found");
+    throw new Error("Technician profile not found for this user");
   }
 
   return profile;
 };
-
 const startBookingIntoDB = async (
   bookingId: string,
   technicianId: string
