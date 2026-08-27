@@ -63,9 +63,11 @@ const paymentFail = catchAsync(async (req: Request, res: Response) => {
 });
 
 
-const paymentCancel = catchAsync(async (req: Request, res: Response) => {
-  const result = await paymentService.paymentCancelIntoDB(req.body);
-   return res.redirect(
+const paymentCancel = catchAsync(
+  async (req: Request, res: Response) => {
+   await paymentService.paymentCancelIntoDB(req.body);
+   
+    res.redirect(
     `${config.frontend_url}/payment/cancel`
   );
 
