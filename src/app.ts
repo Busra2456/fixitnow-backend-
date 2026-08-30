@@ -17,7 +17,7 @@ import { globalErrorHandler } from './middlewares/globalErrorHandler.js';
 import config from "./config/index.js";
 const app: Application = express();
 app.use(cors({
-  origin : config.frontend_url,
+  origin : config.app_url,
   credentials :true
 }))
 app.use(express.json());
