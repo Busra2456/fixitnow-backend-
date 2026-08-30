@@ -66,7 +66,7 @@ const createPaymentIntoDB = async (
   currency: "BDT",
   tran_id: transactionId,
 
-  success_url: `${config.app_url}/api/payments/success`,
+  success_url: `${config.frontend_url}/payments/success`,
   fail_url: `${config.app_url}/api/payments/fail`,
   cancel_url: `${config.app_url}/api/payments/cancel`,
   ipn_url: `${config.app_url}/api/payments/ipn`,
